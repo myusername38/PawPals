@@ -1,0 +1,31 @@
+@import '../../../vars.scss';
+
+.main {
+  height: calc(100vh);
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../../assets/pictures/pawpas_background.jpg');
+  background-position : center bottom;
+  background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 800px;
+  background-color: white;
+  @media screen and (max-width: $screen-medium){
+    width: auto;
+  }
+}
+
+.login-picture {
+  max-width: 500px;
+}
+
+.placeholder {
+  width: 20px;
+  height: 20px;
+}
+
+:host ::ng-deep .mat-progress-spinner circle, .mat-spinner circle {
+  stroke: white !important;
+}

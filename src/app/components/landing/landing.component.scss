@@ -1,0 +1,23 @@
+@import '../../../vars.scss';
+
+$button-font-size: 22px;
+
+@import '../../../vars.scss';
+
+.mobile-nav-menu {
+  position: fixed;
+  height: 100vh !important;
+  background-color: #F2EFEA;
+  z-index:3;
+  .buttons {
+    height: 300px;
+  };
+}
+
+.tool-bar {
+  height: 85px;
+  background-color: white;
+  position: fixed;
+  top: 0px;
+  z-index: 4;
+}

@@ -1,16 +1,13 @@
-// This file can be replaced during build by using the `fileReplacements` array.
-// `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
-// The list of file replacements can be found in `angular.json`.
-
 export const environment = {
-  production: false
+  production: false,
+  firebaseConfig: {
+    apiKey: 'AIzaSyB-LDUiZUQfg-8KrsZ7dadsXWdH_mNB8w8',
+    authDomain: 'pawpals-api.firebaseapp.com',
+    projectId: 'pawpals-api',
+    storageBucket: 'pawpals-api.appspot.com',
+    messagingSenderId: '233489311467',
+    appId: '1:233489311467:web:1d40276ab06387cac2c0ae',
+    measurementId: 'G-D29QM1W2E9'
+  },
+  apiUrl: 'http://localhost:5000/pawpals-api/us-central1/api',
 };
-
-/*
- * For easier debugging in development mode, you can import the following file
- * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *
- * This import should be commented out in production mode because it will have a negative impact
- * on performance if an error is thrown.
- */
-// import 'zone.js/dist/zone-error';  // Included with Angular CLI.

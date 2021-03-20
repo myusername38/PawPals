@@ -1,0 +1,31 @@
+<mat-toolbar class="tool-bar w-100">
+  <div class="buttons w-100" fxLayout="row" fxLayoutAlign="end center">
+    <button class="login-button" mat-icon-button (click)="toggleMobileMenu()" fxHide.gt-sm><mat-icon class="icon">menu</mat-icon></button>
+    <button mat-button class="login-button" (click)="login()" fxHide.lt-md>
+      LOGIN
+    </button>
+    <button mat-button class="register-button" (click)="register()" fxHide.lt-md>
+      REGISTER
+    </button>
+  </div>
+</mat-toolbar>
+<div class="mobile-nav-menu w-100 fade-in-fast" fxLayout="column" fxLayoutAlign="center center" *ngIf="mobileMenu">
+  <div class="buttons w-100" fxLayout="column" fxLayoutAlign="space-between center">
+    <button mat-button class="register-button" (click)="login()">
+      LOGIN
+    </button>
+    <button mat-button class="register-button" (click)="register()">
+      REGISTER
+    </button>
+    <button mat-button class="register-button" (click)="home()">
+      HOME
+    </button>
+    <button mat-button class="register-button" (click)="toggleMobileMenu()">
+      CLOSE
+    </button>
+  </div>
+</div>
+<div class="landing-contents">
+  <router-outlet></router-outlet>
+</div>
+
