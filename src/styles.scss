@@ -76,14 +76,7 @@
 .br-lg { border-radius: 16px !important; }
 // Text Align
 .text-center { text-align: center; }
-/* Colors */
-.primary { background-color: $primary !important; }
-.accent { background-color: $accent !important; }
-.warn { background-color: $warn !important; }
-.text-white { color: white !important; }
-.text-primary { color: $primary !important };
-.text-accent { color: $accent !important };
-.text-warn { color: $warn !important };
+
 
 .limit-width {
   max-width: $content-max-width !important;

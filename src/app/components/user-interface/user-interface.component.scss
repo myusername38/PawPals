@@ -1,0 +1,17 @@
+@import '../../../vars.scss';
+
+.footer {
+  position: fixed;
+  bottom: 0px;
+  z-index: 99;
+  background-color: $color1;
+  color: $color2 !important;
+  font-size: 40px;
+  .button-container {
+    max-width: 800px;
+  }
+
+}
+.icon {
+  font-size: 40px !important;
+}
