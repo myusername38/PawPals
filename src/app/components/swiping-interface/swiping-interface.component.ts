@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SwipingInterfaceComponent implements OnInit {
 
+  userPicture = '../../../assets/pictures/OakyBaby.jpg';
+
   constructor() { }
 
   ngOnInit(): void {
