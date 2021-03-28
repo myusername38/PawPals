@@ -1,1 +1,62 @@
-<p>swiping-interface works!</p>
+<div
+  class="main w-100 p-sm mlr-auto"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <h1 fxLayout="flex-end">
+    <div class="m-sm w-100" [ngStyle]="{ overflow: 'hidden' }">
+      <div
+        class="user-image"
+        [ngStyle]="{
+          'background-image': 'url(../../../assets/pictures/OakyBaby.jpg)',
+          'background-size': 'cover',
+          'background-repeat': 'no-repeat',
+          'color': 'white',
+          'overflow': 'hidden',
+          'background position': 'center',
+          'border-radius': '25px',
+          'padding': '20px'
+        }"
+      >
+      <div>
+        
+        <div>Name, age</div>
+        <div>Breed</div>
+        <div>City, State</div>
+      </div>
+      </div>
+
+      <div fxLayout="row">
+        <div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="50"
+            viewBox="0 0 24 24"
+            width="50"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M15.73 3H8.27L3 8.27v7.46L8.27 21h7.46L21 15.73V8.27L15.73 3zM17 15.74L15.74 17 12 13.26 8.26 17 7 15.74 10.74 12 7 8.26 8.26 7 12 10.74 15.74 7 17 8.26 13.26 12 17 15.74z"
+            />
+          </svg>
+        </div>
+        <div fxFlex="70"></div>
+        <div [ngStyle]="{ color: 'white' }">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="50"
+            viewBox="0 0 24 24"
+            width="50"
+          >
+            <path d="M0 0h24v24H0z" fill="none" />
+            <path
+              d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </h1>
+
+  <div class="footer-placeholder w-100"></div>
+</div>
