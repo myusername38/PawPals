@@ -27,6 +27,11 @@ import { RegisterComponent } from './components/register/register.component';
 import { LandingComponent } from './components/landing/landing.component';
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
 import { HomeComponent } from './components/home/home.component';
+import { UserInterfaceComponent } from './components/user-interface/user-interface.component';
+import { SwipingInterfaceComponent } from './components/swiping-interface/swiping-interface.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { MessengerComponent } from './components/messenger/messenger.component';
+import { LikedUsersComponent } from './components/liked-users/liked-users.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +40,12 @@ import { HomeComponent } from './components/home/home.component';
     RegisterComponent,
     LandingComponent,
     VerifyEmailComponent,
-    HomeComponent
+    HomeComponent,
+    UserInterfaceComponent,
+    SwipingInterfaceComponent,
+    UserProfileComponent,
+    MessengerComponent,
+    LikedUsersComponent
   ],
   imports: [
     BrowserModule,

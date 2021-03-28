@@ -9,5 +9,5 @@ export const environment = {
     appId: '1:233489311467:web:1d40276ab06387cac2c0ae',
     measurementId: 'G-D29QM1W2E9'
   },
-  apiUrl: 'http://localhost:5000/pawpals-api/us-central1/api',
+  apiUrl: 'https://us-central1-pawpals-api.cloudfunctions.net/api',
 };
