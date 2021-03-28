@@ -1,1 +1,35 @@
-<p>swiping-interface works!</p>
+<div
+  class="main w-100 p-sm mlr-auto"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  <div fxLayout="flex-end">
+    <div class="m-sm w-100" [ngStyle]="{ overflow: 'hidden' }">
+      <div
+        class="user-image p-sm"
+        [ngStyle]="{
+          'background-image': 'url(' + userPicture + ')'
+        }"
+        fxLayout="column"
+        fxLayoutAlign="end start"
+      >
+        <div>
+          <h1 class="name">Name, age</h1>
+          <p class="location">Breed</p>
+          <p class="location">City, State</p>
+        </div>
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+          <mat-icon class="icon">dangerous</mat-icon>
+        </div>
+        <div>
+          <mat-icon class="icon">favorite</mat-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-placeholder w-100"></div>
+</div>
