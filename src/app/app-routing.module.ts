@@ -10,6 +10,7 @@ import { MessengerComponent } from './components/messenger/messenger.component';
 import { SwipingInterfaceComponent } from './components/swiping-interface/swiping-interface.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { LikedUsersComponent } from './components/liked-users/liked-users.component';
+import { AuthGuard } from './guards/auth-guard.service';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, children: [
@@ -20,12 +21,12 @@ const routes: Routes = [
     { path: 'verify-email', component: VerifyEmailComponent },
   ] },
   { path: 'pawpals', component: UserInterfaceComponent, children: [
-    { path: 'messanger', component: MessengerComponent },
-    { path: 'liked', component: LikedUsersComponent },
-    { path: 'swiping', component: SwipingInterfaceComponent },
-    { path: 'user-interface', component: UserInterfaceComponent },
-    { path: 'profile', component: UserProfileComponent },
+    { path: 'liked', component: LikedUsersComponent, canActivate: [AuthGuard] },
+    { path: '', component: SwipingInterfaceComponent, canActivate: [AuthGuard] },
+    { path: 'user-interface', component: UserInterfaceComponent, canActivate: [AuthGuard] },
+    { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
   ] },
+  { path: 'messanger', component: MessengerComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

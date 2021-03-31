@@ -1,0 +1,105 @@
+@import '../../../vars.scss';
+
+.user-message {
+  background-color: white;
+  color: $color1;
+  margin-left: auto;
+  margin-right: 8px;
+}
+
+.second-user-message {
+  background-color: $color1;
+  color: white;
+}
+
+p {
+  word-break: break;
+}
+
+.messages {
+  height: calc(100vh - 250px);
+  overflow-y: scroll;
+}
+
+.messages::-webkit-scrollbar {
+  display: none !important;
+}
+
+.message {
+  max-width: 600px;
+  border-radius: 12px;
+}
+
+.user-name {
+  color: $color1;
+}
+
+.user-picture-large {
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  border-radius: 50px;
+  z-index: -1 !important;
+  img {
+    z-index: -1 !important;
+  }
+}
+
+.icon {
+  font-size: 80px !important;
+  color: $color1;
+}
+
+.back-button {
+  margin-top: 32px;
+  position: absolute;
+}
+
+.message-box {
+  width: auto;
+  height: auto;
+  resize: none;
+  overflow: auto;
+  font-family: Helvetica, sans-serif;
+  border: none;
+  word-break: break;
+}
+
+.message-box:focus, input:focus{
+  outline: 0;
+}
+
+*:focus {
+  outline: 0;
+}
+
+.message-box::-webkit-scrollbar {
+  display: none !important;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+  background-color: white;
+  border-radius: 4px;
+}
+
+::ng-deep .mat-form-field-underline {
+  display: none;
+}
+
+:host ::ng-deep .mat-form-field-infix {
+  padding: 8px;
+}
+
+.submit-button {
+  height: 47px;
+  background-color: $color1;
+  color: white;
+  font-size: 16px;
+  min-width: 80px;
+}
+
+.chat-bar {
+  position: fixed;
+  bottom: -16px;
+  background-color: $color2;
+}

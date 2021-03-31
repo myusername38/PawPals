@@ -12,18 +12,18 @@
     <h1>Your Dogs</h1>
   </div>
   <div class="user-dogs w-100 mt-lg" fxLayout="row wrap" fxLayoutAlign="center center">
-    <div class="dogs ml-sm mr-sm" *ngFor="let dog of userDogs" fxLayout="column" fxLayoutAlign="center center">
-      <div class="dog-image">
-        <img class="dog-image" src="{{ dog.picture }}" alt="Picture of {{ userInfo.name }}'s dog {{ dog.name }}'">
+    <div class="dogs ml-sm mr-sm" *ngFor="let dog of dogs" fxLayout="column" fxLayoutAlign="center center">
+      <div class="dog-image" [ngStyle]="{'background-image': 'url(' + dog.picture + ')'}">
       </div>
       <p class="dog-name">{{ dog.name }}</p>
     </div>
-    <div class="add-dog" fxLayout="column" fxLayoutAlign="center center">
+
+    <button mat-button class="add-dog" (click)="addDog()" fxLayout="column" fxLayoutAlign="center center">
       <div class="add-dog-button" fxLayoutAlign="center center">
         <mat-icon class="icon">add</mat-icon>
       </div>
-      <p class="dog-name">Add Dog Profile</p>
-    </div>
+      <p class="dog-name mlr-auto">Add Dog Profile</p>
+    </button>
   </div>
   <div class="footer-placeholder w-100">
 

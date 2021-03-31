@@ -122,6 +122,10 @@
   box-shadow: -7px 6px 10px 1px rgba(0,0,0,0.4);
 }
 
+.footer-placeholder {
+  height: $footer-height;
+}
+
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }

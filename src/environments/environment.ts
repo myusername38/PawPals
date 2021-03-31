@@ -10,4 +10,5 @@ export const environment = {
     measurementId: 'G-D29QM1W2E9'
   },
   apiUrl: 'https://us-central1-pawpals-api.cloudfunctions.net/api',
+  storageUrl: 'gs://pawpals-api.appspot.com'
 };

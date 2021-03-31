@@ -37,8 +37,6 @@ export class AuthService {
       if (user) {
         this._user = user;
         this.userSubject.next(user);
-        const idTokenResult = await user.getIdTokenResult();
-        this._username = idTokenResult.claims.username;
       }
     });
   }
