@@ -21,7 +21,11 @@ export class LandingComponent implements OnInit {
   }
 
   login() {
-    this.router.navigate(['login']);
+    if (this.authService._user) {
+      this.router.navigate(['pawpals'])
+    } else {
+      this.router.navigate(['login']);
+    }
   }
 
   toggleMobileMenu() {

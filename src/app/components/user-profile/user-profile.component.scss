@@ -5,10 +5,6 @@
   max-width: 600px;
 }
 
-.footer-placeholder {
-  height: $footer-height;
-}
-
 .user-data {
   margin-top: -80px;
   color: black;
@@ -28,6 +24,8 @@
   width: 300px;
   overflow: hidden;
   border-radius: 150px;
+  overflow: hidden;
+  background-position: center;
   z-index: -1 !important;
   img {
     z-index: -1 !important;
@@ -37,8 +35,10 @@
 .dog-image {
   width: 150px;
   height: 150px;
+  background-size: cover;
   border-radius: 75px;
   overflow: hidden;
+  background-position: center;
 }
 
 .add-dog-button {

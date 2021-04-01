@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSliderModule } from '@angular/material/slider';
@@ -32,6 +33,9 @@ import { SwipingInterfaceComponent } from './components/swiping-interface/swipin
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { MessengerComponent } from './components/messenger/messenger.component';
 import { LikedUsersComponent } from './components/liked-users/liked-users.component';
+import { AddDogDialogComponent } from './components/add-dog-dialog/add-dog-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AddUserInfoDialogComponent } from './components/add-user-info-dialog/add-user-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +49,9 @@ import { LikedUsersComponent } from './components/liked-users/liked-users.compon
     SwipingInterfaceComponent,
     UserProfileComponent,
     MessengerComponent,
-    LikedUsersComponent
+    LikedUsersComponent,
+    AddDogDialogComponent,
+    AddUserInfoDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -60,11 +66,13 @@ import { LikedUsersComponent } from './components/liked-users/liked-users.compon
     AngularFireStorageModule,
     MatButtonModule,
     MatDialogModule,
+    MatFormFieldModule,
     MatIconModule,
     MatProgressSpinnerModule,
     MatSliderModule,
     MatRadioModule,
     MatSnackBarModule,
+    MatCheckboxModule,
     MatMenuModule,
     MatToolbarModule,
     MatInputModule,

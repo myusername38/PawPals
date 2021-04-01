@@ -47,6 +47,7 @@ export class LoginComponent implements OnInit {
     try {
       this.loading = true;
       await this.authService.login(this.loginForm.getRawValue());
+      this.router.navigate(['pawpals'])
     } catch ({ message = 'Error authentication, please try again' }) {
       this.snackbarService.showError(message, 'Close');
     } finally {

@@ -1,0 +1,25 @@
+@import '../../../vars.scss';
+
+.liked-users {
+  max-width: 600px;
+  h1 {
+    color: $color1;
+  }
+  p {
+    word-break: break-all;
+  }
+}
+
+.user-picture {
+  min-height: 100px;
+  min-width: 100px;
+  overflow: hidden;
+  border-radius: 50px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  z-index: -1 !important;
+  img {
+    z-index: -1 !important;
+  }
+}

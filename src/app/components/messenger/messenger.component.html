@@ -1,1 +1,28 @@
-<p>Messenger Works!</p>
+<div class="main w-100" fxLayout="column">
+  <div class="header p-md">
+    <button mat-icon-button (click)="back()" class="back-button"><mat-icon class="icon">keyboard_arrow_left</mat-icon></button>
+    <div class="user" fxLayout="row" fxLayoutAlign="center center">
+      <div class="user-picture-large" [ngStyle]="{'background-image': 'url(' + selectedUser.picture + ')'}"></div>
+      <h1 class="user-name ml-sm">{{ selectedUser.name }}</h1>
+    </div>
+  </div>
+  <div class="messages p-sm" #chat fxLayout="column">
+    <div class="message p-sm mt-xs mb-xs" *ngFor="let message of messages" [ngClass]="(message.user==currentUser)?'user-message':'second-user-message'">
+      <p class="mt-0 mb-0">{{ message.message }}</p>
+    </div>
+    <div class="paceholder mt-lg mb-sm">
+
+    </div>
+  </div>
+</div>
+<div class="chat-bar pl-sm pr-sm w-100" fxLayout="row">
+    <mat-form-field class="w-100">
+      <textarea matInput
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                class="message-box w-100 pb-xs" [(ngModel)] = "userMessage" (ngModelChange)="updateTextArea()" (keypress)="disableEnter($event)"></textarea>
+    </mat-form-field>
+
+  <button mat-button class="ml-sm submit-button" (click)="send()"><p class="mt-0 mb-0 mlr-auto">Send</p></button>
+</div>
+
