@@ -35,6 +35,7 @@ import { MessengerComponent } from './components/messenger/messenger.component';
 import { LikedUsersComponent } from './components/liked-users/liked-users.component';
 import { AddDogDialogComponent } from './components/add-dog-dialog/add-dog-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AddUserInfoDialogComponent } from './components/add-user-info-dialog/add-user-info-dialog.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     UserProfileComponent,
     MessengerComponent,
     LikedUsersComponent,
-    AddDogDialogComponent
+    AddDogDialogComponent,
+    AddUserInfoDialogComponent
   ],
   imports: [
     BrowserModule,

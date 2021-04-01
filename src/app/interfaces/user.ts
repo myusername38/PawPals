@@ -6,5 +6,7 @@ export interface User {
   name: string;
   liked: [string];
   uid: string;
-  viewed: [string];
+  disliked: [string];
+  bio: string;
+  picture: string;
 }

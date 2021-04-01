@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AddDogDialogComponent } from '../add-dog-dialog/add-dog-dialog.component';
+import { AddUserInfoDialogComponent } from '../add-user-info-dialog/add-user-info-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth.service';
 import { AngularFirestore } from '@angular/fire/firestore/';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { Dog } from '../../interfaces/dog';
 import { environment } from '../../../environments/environment';
+import { User } from '../../interfaces/user';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,10 +17,7 @@ import { environment } from '../../../environments/environment';
 export class UserProfileComponent implements OnInit {
 
   picture = 'src/assets/pictures/chuck_norris.jpg'
-  userInfo = {
-    name: 'Chuck Norris',
-    location: 'Chapel Hill, NC'
-  }
+  userInfo: User = null;
   loading = false;
   dogs = [];
   userUid = '';
@@ -29,6 +28,26 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userUid = this.authService._user.uid
     this.getDogs();
+    this.getUser();
+
+  }
+
+  async getUser() {
+    try {
+      this.loading = true;
+      this.userInfo = (await this.db.doc(`/users/${ this.userUid }`).ref.get()).data() as User;
+      if (this.userInfo.bio) {
+        this.afStorage.refFromURL(`${ environment.storageUrl }/${ this.userInfo.picture }`).getDownloadURL().subscribe(url => {
+          this.picture = url;
+        })
+      } else {
+        this.addUserInfo();
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.loading = false;
+    }
   }
 
   async getDogs() {
@@ -57,6 +76,16 @@ export class UserProfileComponent implements OnInit {
     })
     dialogRef.afterClosed().subscribe(result => {
       this.getDogs();
+    })
+  }
+
+  async addUserInfo() {
+    const dialogRef = this.dialog.open(AddUserInfoDialogComponent, {
+      width: '600px',
+      data: {}
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      this.getUser();
     })
   }
 

@@ -1,11 +1,9 @@
 <div class="main w-100 p-sm mlr-auto" fxLayout="column" fxLayoutAlign="center center">
-  <div class="user">
-    <div class="user-image">
-      <img src="../../../assets/pictures/chuck_norris.jpg" alt="Picture of {{ userInfo.name }}">
-    </div>
+  <div class="user" *ngIf="userInfo">
+    <div class="user-image" [ngStyle]="{'background-image': 'url(' + picture + ')'}"></div>
     <div class="user-data pt-xs pb-xs pl-sm pr-sm ml-0 mr-auto">
-      <h1 class="name mt-0">{{ userInfo.name }}</h1>
-      <p class="location mb-0">{{ userInfo.location }}</p>
+      <h1 class="name mt-0">{{ userInfo?.name }}</h1>
+      <p class="location mb-0">Chapel Hill, Nc</p>
     </div>
   </div>
   <div class="w-100 seperator">
@@ -17,7 +15,6 @@
       </div>
       <p class="dog-name">{{ dog.name }}</p>
     </div>
-
     <button mat-button class="add-dog" (click)="addDog()" fxLayout="column" fxLayoutAlign="center center">
       <div class="add-dog-button" fxLayoutAlign="center center">
         <mat-icon class="icon">add</mat-icon>
@@ -25,7 +22,5 @@
       <p class="dog-name mlr-auto">Add Dog Profile</p>
     </button>
   </div>
-  <div class="footer-placeholder w-100">
-
-  </div>
+  <div class="footer-placeholder w-100"></div>
 </div>
