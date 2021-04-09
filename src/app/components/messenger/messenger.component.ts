@@ -2,7 +2,13 @@ import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core'
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { take } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AuthService } from 'src/app/services/auth.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { User } from 'src/app/interfaces/user';
+import { ShowHideStyleBuilder } from '@angular/flex-layout';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-messenger',
@@ -14,43 +20,18 @@ export class MessengerComponent implements OnInit {
   userMessage = '';
   messageForm: FormGroup;
   currentUser = '1';
-  selectedUser = {
-    name: 'Chuck norris',
-    uid: 'alsakfjasdl;fas',
-    picture: '../../../assets/pictures/chuck_norris.jpg',
-    lastMessage: 'Bruce Lee is going downjljl;kj;kj;ljkljkljkljk;ljkl;jk;jkl;j;ljkljlkj;lkj;j;kajfslk;djfal;ksjfklsajfklsajklfjsajdflsjakljdfsadl;kjf',
-    dogs: []
-  };
+  selectedUser: User = null;
+  ref = '';
+  uid = ''
+  messages = []
+  selectedUserUid = '';
 
-  messages = [
-    {
-      user: '1',
-      message: 'I love dogs',
-      date: Date.now()-4
-    },
-    {
-      user: '2',
-      message: 'No way I love dogs too',
-      date: Date.now()-3
-    },
-    {
-      user: '1',
-      message: 'Woah we have a lot in common',
-      date: Date.now()-2
-    },
-    {
-      user: '2',
-      message: 'Lets get married and die at 92 in a retirement home after living a somewhat fullfilling life of working at random jobs we hate and have children to hopefully num the pain of this terrible existance',
-      date: Date.now()-1
-    },
-    {
-      user: '1',
-      message: 'Hell ya gamer',
-      date: Date.now()
-    },
-  ]
-
-  constructor(private _ngZone: NgZone, private router: Router) { }
+  constructor(private _ngZone: NgZone, private router: Router, private route: ActivatedRoute, private db: AngularFirestore, private authService: AuthService, private afStorage: AngularFireStorage) {
+    this.route.queryParams.subscribe(params => {
+      this.ref = params['ref'];
+      this.selectedUserUid = params['user'];
+    });
+  }
 
   @ViewChild('autosize') autosize: CdkTextareaAutosize;
   @ViewChild('chat') private chatWindow: ElementRef;
@@ -59,6 +40,15 @@ export class MessengerComponent implements OnInit {
     this.messageForm = new FormGroup({
       message: new FormControl('', [Validators.required]),
     });
+    this.uid = this.authService._user.uid;
+    this.db.doc('conversations/conversations').collection(this.ref).ref.orderBy('date', 'asc').onSnapshot((data) => {
+      this.messages = [];
+      data.forEach(doc => {
+        let message = doc.data();
+        this.messages.push(message);
+      })
+    });
+    this.getUser();
   }
 
   triggerResize() {
@@ -72,12 +62,20 @@ export class MessengerComponent implements OnInit {
   }
 
   async send() {
-    this.messages.push({
-      user: '1',
-      message: this.userMessage,
-      date: Date.now()
-    })
-    this.userMessage = '';
+    try {
+      const newMessage = {
+        user: this.uid,
+        message: this.userMessage,
+        date: Date.now()
+      }
+      this.userMessage = '';
+      const id = 'message_' + Math.random().toString(36).substr(2, 15);
+      await this.db.doc('conversations/conversations').collection(this.ref).doc(id).ref.set(newMessage);
+    } catch (err) {
+      console.log(err)
+    } finally {
+
+    }
     this.scrollToBottom();
   }
 
@@ -88,7 +86,20 @@ export class MessengerComponent implements OnInit {
   disableEnter(event: any) {
     if (event.keyCode === 13) {
       event.preventDefault();
+      this.send();
     };
+  }
+
+  async getUser() {
+    try {
+      this.selectedUser = (await this.db.doc(`/users/${ this.selectedUserUid }`).ref.get()).data() as User;
+      this.afStorage.refFromURL(`${ environment.storageUrl }/${ this.selectedUser.picture }`).getDownloadURL().subscribe(url => {
+        this.selectedUser.picture = url;
+      });
+    } catch (err) {
+      console.log(err);
+    } finally {
+    }
   }
 
   scrollToBottom(): void {

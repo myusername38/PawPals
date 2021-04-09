@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="messages p-sm" #chat fxLayout="column">
-    <div class="message p-sm mt-xs mb-xs" *ngFor="let message of messages" [ngClass]="(message.user==currentUser)?'user-message':'second-user-message'">
+    <div class="message p-sm mt-xs mb-xs" *ngFor="let message of messages" [ngClass]="(message.user==uid)?'user-message':'second-user-message'">
       <p class="mt-0 mb-0">{{ message.message }}</p>
     </div>
     <div class="paceholder mt-lg mb-sm">

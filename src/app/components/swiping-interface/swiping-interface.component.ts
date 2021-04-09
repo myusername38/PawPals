@@ -67,10 +67,6 @@ export class SwipingInterfaceComponent implements OnInit {
 
   likeUser(user: User = this.currentProfile) {
     this.user.liked.push(user.uid);
-    if (user.liked.includes(this.user.uid)) {
-      this.user.freinds.push(user.uid);
-      // show liked message
-    }
     this.updateUser();
     this.currentProfile = this.otherUsers.pop();
     this.loadDogs();

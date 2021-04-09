@@ -1,5 +1,8 @@
 
 export interface User {
+  lastMessage?: string;
+  ref?: string;
+  date?: number;
   dogs: [string];
   email: string;
   freinds: [string];

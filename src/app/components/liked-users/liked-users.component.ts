@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { User } from 'src/app/interfaces/user';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-liked-users',
@@ -22,6 +23,7 @@ export class LikedUsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.userUid = this.authService._user.uid;
+    this.initApp();
   }
 
   async initApp() {
@@ -40,12 +42,20 @@ export class LikedUsersComponent implements OnInit {
   async getUsers() {
     try {
       this.loading = true;
-      (await this.db.collection('users').ref.where('liked', 'array-contains', this.userUid).get()).docs.forEach(doc => {
+      (await this.db.collection('users').ref.where('liked', 'array-contains', this.userUid).get()).docs.forEach(async doc => {
         let user = doc.data() as User;
         if (this.user.liked.includes(user.uid)) {
+          this.afStorage.refFromURL(`${ environment.storageUrl }/${ user.picture }`).getDownloadURL().subscribe(url => {
+            user.picture = url;
+          });
+          const conversation = await this.getConversation(user);
+          user.lastMessage = conversation.prevMessage;
+          user.ref = conversation.ref;
+          user.date = conversation.date;
           this.friends.push(user);
         }
       })
+      console.log(this.friends);
     } catch (err) {
       console.log(err);
     } finally {
@@ -53,8 +63,37 @@ export class LikedUsersComponent implements OnInit {
     }
   }
 
-  openChat(uid = 'alksjdfalsdj') {
-    this.router.navigate(['messanger']);
+  async getConversation(user: User) {
+    try {
+      this.loading = true;
+      let ref = `${ this.userUid }-${ user.uid }`
+      let conversation = (await this.db.collection('conversations')
+                    .doc('conversations')
+                    .collection(ref).ref.orderBy('date', 'desc').limit(1).get()).docs;
+      if (conversation.length < 1) {
+        ref =`${ user.uid }-${ this.userUid }`;
+        conversation = (await this.db.collection('conversations')
+                                         .doc('conversations')
+                                         .collection(ref).ref.orderBy('date', 'desc').limit(1).get()).docs;
+      }
+      if (conversation.length < 1) {
+        return { prevMessage: 'Start the conversation!', ref, date: -1 }
+      }
+      return {
+        prevMessage: conversation[0].data().message,
+        date: conversation[0].data().date,
+        ref
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  openChat(chatRef: string, uid: string) {
+    console.log(chatRef);
+    this.router.navigate(['messanger'], {queryParams: { ref: chatRef, user: uid },});
   }
 
   shortenMessage(message: string) {

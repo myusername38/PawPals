@@ -1,10 +1,10 @@
 <div class="main w-100">
   <div class="liked-users w-100 mlr-auto p-sm" fxLayout="column" fxLayoutAlign="center start">
-    <div class="liked-user mb-sm mt-sm" (click)="openChat(user.uid)" *ngFor="let user of likedUsers" (click)="openChat()" fxLayout="row" fxLayoutAlign="start start">
+    <div class="liked-user mb-sm mt-sm" *ngFor="let user of friends" (click)="openChat(user.ref, user.uid)" fxLayout="row" fxLayoutAlign="start start">
       <div class="user-picture" [ngStyle]="{'background-image': 'url(' + user.picture + ')'}"></div>
       <div class="user-info pl-sm" fxLayout="column" fxLayoutAlign="start start">
         <h1 class="mt-0 mb-0">{{ user.name }}</h1>
-        <p class="mt-xs mb-0">{{ shortenMessage(user.lastMessage) }}</p>
+        <p class="mt-xs mb-0">{{ user.lastMessage }}</p>
       </div>
     </div>
   </div>
