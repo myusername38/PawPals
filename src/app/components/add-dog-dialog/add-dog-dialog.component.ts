@@ -71,10 +71,12 @@ export class AddDogDialogComponent implements OnInit {
       dog.owner = this.userUid;
       let ref = this.afStorage.ref(id);
       let userInfo = (await this.db.doc(`/users/${ this.userUid }`).ref.get()).data() as User;
+      userInfo.dogs.push(id)
       await Promise.all([
         userInfo.dogs.push(id),
         ref.put(this.file),
-        this.db.doc(`/dogs/${ id }`).set(dog)
+        this.db.doc(`/dogs/${ id }`).set(dog),
+        this.db.doc(`/users/${ this.userUid }`).set(userInfo)
       ]);
       this.dialogRef.close();
     } catch (err) {

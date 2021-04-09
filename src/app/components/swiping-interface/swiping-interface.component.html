@@ -1,10 +1,10 @@
 <div class="main w-100 p-sm mlr-auto" fxLayout="column" fxLayoutAlign="center center">
   <div fxLayout="flex-end">
     <div class="w-100">
-      <div class="user-image p-sm" [ngStyle]="{'background-image': 'url(' + userPicture + ')'}" fxLayout="column" fxLayoutAlign="start start">
+      <div class="user-image p-sm" *ngFor="let dog of dogs.slice(0,1)" [ngStyle]="{'background-image': 'url(' + dog.picture + ')'}" fxLayout="column" fxLayoutAlign="start start">
         <div class="dog-info pl-sm pr-sm">
-          <h1 class="name">Name</h1>
-          <p class="bread">Breed</p>
+          <h1 class="name">{{ dog.name }}</h1>
+          <p class="bread">{{ dog.bread }}</p>
         </div>
       </div>
       <div class="liked-buttons" fxLayout="row" fxLayoutAlign="space-between center">
@@ -15,8 +15,19 @@
           <mat-icon class="icon">favorite</mat-icon>
         </div>
       </div>
-      <div class="description p-sm w-100">
-        {{dogDescription}}
+      <div class="description p-sm w-100" *ngIf="dogs && dogs[0]">
+        <p class="bold">About {{ dogs[0].name }}:</p>
+        {{ dogs[0].description }}
+      </div>
+      <div class="user-image p-sm" [ngStyle]="{'background-image': 'url(' + currentProfile.picture + ')'}" fxLayout="column" fxLayoutAlign="start start" *ngIf="currentProfile">
+        <div class="user-info pl-sm pr-sm">
+          <h1 class="name">{{ currentProfile.name }}</h1>
+          <p class="location">Chapel Hill, NC</p>
+        </div>
+      </div>
+      <div class="bio p-sm" *ngIf="currentProfile">
+        <p class="bold">About me:</p>
+        <p>{{ currentProfile.bio }}</p>
       </div>
     </div>
   </div>

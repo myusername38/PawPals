@@ -18,8 +18,9 @@ export class UserProfileComponent implements OnInit {
 
   picture = 'src/assets/pictures/chuck_norris.jpg'
   userInfo: User = null;
+
   loading = false;
-  dogs = [];
+  dogs: Dog[] = [];
   userUid = '';
   storageRef = null;
 
@@ -29,7 +30,6 @@ export class UserProfileComponent implements OnInit {
     this.userUid = this.authService._user.uid
     this.getDogs();
     this.getUser();
-
   }
 
   async getUser() {

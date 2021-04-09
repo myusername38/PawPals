@@ -3,6 +3,8 @@ import { User } from '../../interfaces/user';
 import { Dog } from '../../interfaces/dog';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/services/auth.service';
+import { environment } from '../../../environments/environment';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-swiping-interface',
@@ -14,17 +16,18 @@ export class SwipingInterfaceComponent implements OnInit {
   userPicture = '../../../assets/pictures/OakyBaby.jpg';
   user: User = null;
   uid = '';
-  otherUsers: User[] = null;
+  otherUsers: User[] = [];
   loading = false;
   currentProfile = null;
   dogDescription = 'Likes to be a big gamer energy'
   dogs: Dog[] = [];
 
-  constructor(private db: AngularFirestore, private authService: AuthService) { }
+
+  constructor(private db: AngularFirestore, private authService: AuthService, private afStorage: AngularFireStorage) { }
 
   async ngOnInit() {
     this.uid = this.authService._user.uid;
-    this.initApp;
+    this.initApp();
   }
 
   async initApp() {
@@ -49,8 +52,12 @@ export class SwipingInterfaceComponent implements OnInit {
             !this.user.liked.includes(user.uid)) {
               this.otherUsers.push(user);
             }
+            this.afStorage.refFromURL(`${ environment.storageUrl }/${ user.picture }`).getDownloadURL().subscribe(url => {
+              user.picture = url;
+            });
       })
       this.currentProfile = this.otherUsers.pop();
+      this.loadDogs();
     } catch (err) {
       console.log(err)
     } finally {
@@ -66,12 +73,14 @@ export class SwipingInterfaceComponent implements OnInit {
     }
     this.updateUser();
     this.currentProfile = this.otherUsers.pop();
+    this.loadDogs();
   }
 
   dislikeUser(user: User) {
     this.user.disliked.push(user.uid);
     this.updateUser();
-    this.otherUsers.pop();
+    this.currentProfile = this.otherUsers.pop();
+    this.loadDogs();
   }
 
   async updateUser() {
@@ -88,7 +97,26 @@ export class SwipingInterfaceComponent implements OnInit {
   async loadDogs() {
     try {
       this.loading = true;
-
+      this.dogs = [];
+      const promises = [];
+      this.currentProfile.dogs.forEach(dog => {
+        promises.push(
+          new Promise(async (resolve, reject) => {
+            try {
+              const newDog = (await this.db.doc(`/dogs/${ dog }`).ref.get()).data() as Dog;
+              this.afStorage.refFromURL(`${ environment.storageUrl }/${ newDog.picture }`).getDownloadURL().subscribe(url => {
+                newDog.picture = url;
+                this.dogs.push(newDog);
+                return resolve();
+              })
+            } catch (err) {
+              console.log(err);
+              return reject(err)
+            }
+          })
+        );
+      })
+      await Promise.all(promises);
     } catch (err) {
       console.log(err);
     } finally {
