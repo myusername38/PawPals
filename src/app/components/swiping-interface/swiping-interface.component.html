@@ -8,16 +8,22 @@
         </div>
       </div>
       <div class="liked-buttons" fxLayout="row" fxLayoutAlign="space-between center">
-        <div class="button-container dislike" fxLayoutAlign="center center">
+        <div class="button-container dislike" (click)="dislikeUser()" fxLayoutAlign="center center">
           <mat-icon class="icon">clear</mat-icon>
         </div>
-        <div class="button-container like" fxLayoutAlign="center center">
+        <div class="button-container like" (click)="likeUser()" fxLayoutAlign="center center">
           <mat-icon class="icon">favorite</mat-icon>
         </div>
       </div>
       <div class="description p-sm w-100" *ngIf="dogs && dogs[0]">
         <p class="bold">About {{ dogs[0].name }}:</p>
         {{ dogs[0].description }}
+        <p class="bold">Interests:</p>
+        <div fxLayout="row">
+          <p class="mr-xs" *ngIf="dogs[0].playdates">Playdates</p>
+          <p class="mr-xs" *ngIf="dogs[0].adoption">Adoption</p>
+          <p *ngIf="dogs[0].breading">Breading</p>
+        </div>
       </div>
       <div class="user-image p-sm" [ngStyle]="{'background-image': 'url(' + currentProfile.picture + ')'}" fxLayout="column" fxLayoutAlign="start start" *ngIf="currentProfile">
         <div class="user-info pl-sm pr-sm">
@@ -28,6 +34,24 @@
       <div class="bio p-sm" *ngIf="currentProfile">
         <p class="bold">About me:</p>
         <p>{{ currentProfile.bio }}</p>
+      </div>
+      <div class="dog" *ngFor="let dog of dogs.slice(1,dogs.length - 1)">
+        <div class="user-image p-sm" [ngStyle]="{'background-image': 'url(' + dog.picture + ')'}" fxLayout="column" fxLayoutAlign="start start">
+          <div class="dog-info pl-sm pr-sm">
+            <h1 class="name">{{ dog.name }}</h1>
+            <p class="bread">{{ dog.bread }}</p>
+          </div>
+        </div>
+        <div class="description p-sm w-100" *ngIf="dogs && dogs[0]">
+          <p class="bold">About {{ dog.name }}:</p>
+          {{ dog.description }}
+          <p class="bold">Interests:</p>
+          <div fxLayout="row">
+            <p class="mr-xs" *ngIf="dog.playdates">Playdates</p>
+            <p class="mr-xs" *ngIf="dog.adoption">Adoption</p>
+            <p *ngIf="dog.breading">Breading</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

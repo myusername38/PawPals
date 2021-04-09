@@ -22,7 +22,6 @@ export class SwipingInterfaceComponent implements OnInit {
   dogDescription = 'Likes to be a big gamer energy'
   dogs: Dog[] = [];
 
-
   constructor(private db: AngularFirestore, private authService: AuthService, private afStorage: AngularFireStorage) { }
 
   async ngOnInit() {
@@ -49,7 +48,8 @@ export class SwipingInterfaceComponent implements OnInit {
         let user = doc.data() as User;
         if (!user.disliked.includes(this.user.uid) &&
             !this.user.disliked.includes(user.uid) &&
-            !this.user.liked.includes(user.uid)) {
+            !this.user.liked.includes(user.uid) &&
+            user.dogs.length >= 1) {
               this.otherUsers.push(user);
             }
             this.afStorage.refFromURL(`${ environment.storageUrl }/${ user.picture }`).getDownloadURL().subscribe(url => {
@@ -65,7 +65,7 @@ export class SwipingInterfaceComponent implements OnInit {
     }
   }
 
-  likeUser(user: User) {
+  likeUser(user: User = this.currentProfile) {
     this.user.liked.push(user.uid);
     if (user.liked.includes(this.user.uid)) {
       this.user.freinds.push(user.uid);
@@ -76,7 +76,7 @@ export class SwipingInterfaceComponent implements OnInit {
     this.loadDogs();
   }
 
-  dislikeUser(user: User) {
+  dislikeUser(user: User =  this.currentProfile) {
     this.user.disliked.push(user.uid);
     this.updateUser();
     this.currentProfile = this.otherUsers.pop();
