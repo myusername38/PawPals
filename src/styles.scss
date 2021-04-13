@@ -1,4 +1,19 @@
 @import'./vars.scss';
+@import '~@angular/material/theming';
+@include mat-core();
+
+$literacy-primary: mat-palette($pawpals-color1);
+$literacy-accent: mat-palette($pawpals-color1, A400, A100, A700);
+$candy-app-warn:    mat-palette($mat-red);
+
+$literacy-theme: mat-light-theme((
+  color: (
+    primary: $literacy-primary,
+    accent: $literacy-accent,
+    warn: $candy-app-warn,
+  )
+));
+@include angular-material-theme($literacy-theme);
 
 /* CUSTOM CLASSES  */
 .mtb-sm { margin-top: $spacing-sm !important; margin-bottom: $spacing-sm !important; }

@@ -1,9 +1,14 @@
 <div class="main w-100" fxLayout="column">
-  <div class="header p-md">
+  <div class="header p-md" *ngIf="selectedUser">
     <button mat-icon-button (click)="back()" class="back-button"><mat-icon class="icon">keyboard_arrow_left</mat-icon></button>
     <div class="user" fxLayout="row" fxLayoutAlign="center center">
       <div class="user-picture-large" [ngStyle]="{'background-image': 'url(' + selectedUser.picture + ')'}"></div>
       <h1 class="user-name ml-sm">{{ selectedUser.name }}</h1>
+      <button mat-icon-button><mat-icon class="icon-small" [matMenuTriggerFor]="menu">keyboard_arrow_down</mat-icon></button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="unmatch()">Unmatch</button>
+        <button mat-menu-item>View Profile</button>
+      </mat-menu>
     </div>
   </div>
   <div class="messages p-sm" #chat fxLayout="column">

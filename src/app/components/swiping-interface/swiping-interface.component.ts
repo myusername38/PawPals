@@ -5,6 +5,9 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AuthService } from 'src/app/services/auth.service';
 import { environment } from '../../../environments/environment';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { InterestsDialogComponent } from '../interests-dialog/interests-dialog.component';
+import { SnackbarService } from '../../services/snackbar.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-swiping-interface',
@@ -21,8 +24,15 @@ export class SwipingInterfaceComponent implements OnInit {
   currentProfile = null;
   dogDescription = 'Likes to be a big gamer energy'
   dogs: Dog[] = [];
+  breading = true;
+  playdates = true;
+  adoption = true;
 
-  constructor(private db: AngularFirestore, private authService: AuthService, private afStorage: AngularFireStorage) { }
+  constructor(private db: AngularFirestore,
+              private authService: AuthService,
+              private afStorage: AngularFireStorage,
+              private dialog: MatDialog,
+              private snackbar: SnackbarService) { }
 
   async ngOnInit() {
     this.uid = this.authService._user.uid;
@@ -57,7 +67,9 @@ export class SwipingInterfaceComponent implements OnInit {
             });
       })
       this.currentProfile = this.otherUsers.pop();
-      this.loadDogs();
+      if (this.currentProfile) {
+        this.loadDogs();
+      }
     } catch (err) {
       console.log(err)
     } finally {
@@ -66,17 +78,17 @@ export class SwipingInterfaceComponent implements OnInit {
   }
 
   likeUser(user: User = this.currentProfile) {
+    this.snackbar.showInfo('Liked User')
     this.user.liked.push(user.uid);
     this.updateUser();
-    this.currentProfile = this.otherUsers.pop();
-    this.loadDogs();
+    this.loadNextUser();
   }
 
   dislikeUser(user: User =  this.currentProfile) {
+    this.snackbar.showInfo('Disliked User')
     this.user.disliked.push(user.uid);
     this.updateUser();
-    this.currentProfile = this.otherUsers.pop();
-    this.loadDogs();
+    this.loadNextUser();
   }
 
   async updateUser() {
@@ -95,11 +107,15 @@ export class SwipingInterfaceComponent implements OnInit {
       this.loading = true;
       this.dogs = [];
       const promises = [];
+      let interestsMet = false;
       this.currentProfile.dogs.forEach(dog => {
         promises.push(
           new Promise(async (resolve, reject) => {
             try {
               const newDog = (await this.db.doc(`/dogs/${ dog }`).ref.get()).data() as Dog;
+              if (newDog.playdates && this.playdates || newDog.breading && this.breading || newDog.adoption && this.adoption) {
+                interestsMet = true;
+              }
               this.afStorage.refFromURL(`${ environment.storageUrl }/${ newDog.picture }`).getDownloadURL().subscribe(url => {
                 newDog.picture = url;
                 this.dogs.push(newDog);
@@ -113,6 +129,10 @@ export class SwipingInterfaceComponent implements OnInit {
         );
       })
       await Promise.all(promises);
+      console.log(interestsMet)
+      if (!interestsMet) {
+        this.loadNextUser();
+      }
     } catch (err) {
       console.log(err);
     } finally {
@@ -120,4 +140,34 @@ export class SwipingInterfaceComponent implements OnInit {
     }
   }
 
+  loadNextUser() {
+    this.currentProfile = this.otherUsers.pop();
+    if (!this.currentProfile) {
+      this.noMoreUsers();
+    }
+    this.loadDogs();
+  }
+
+  noMoreUsers() {
+    // this.noMoreUsers
+  }
+
+  updatePreferences() {
+    const dialogRef = this.dialog.open(InterestsDialogComponent, {
+      width: '400px',
+      data: {
+        playdates: this.playdates,
+        breading: this.breading,
+        adoption: this.adoption
+      }
+    })
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.playdates = result.interests.playdates;
+        this.breading = result.interests.breading;
+        this.adoption = result.interests.adoption;
+        this.initApp();
+      }
+    })
+  }
 }

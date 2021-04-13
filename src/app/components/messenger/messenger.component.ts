@@ -37,6 +37,8 @@ export class MessengerComponent implements OnInit {
   @ViewChild('chat') private chatWindow: ElementRef;
 
   ngOnInit(): void {
+    this.currentUser = this.authService._user.uid;
+    console.log(this.currentUser);
     this.messageForm = new FormGroup({
       message: new FormControl('', [Validators.required]),
     });
@@ -59,6 +61,21 @@ export class MessengerComponent implements OnInit {
 
   print(message) {
     console.log(message);
+  }
+
+  async unmatch() {
+    try {
+      let userData = (await this.db.doc(`/users/${ this.currentUser }`).ref.get()).data() as User;
+      userData.liked = userData.liked.filter(uid => uid !== this.selectedUser.uid);
+      userData.disliked.push(this.selectedUserUid);
+      await await this.db.doc(`/users/${ this.currentUser }`).ref.set(userData);
+     // this.sn
+      this.back();
+    } catch (err) {
+      console.log(err)
+    } finally {
+      // do something
+    }
   }
 
   async send() {

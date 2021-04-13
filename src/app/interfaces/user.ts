@@ -3,13 +3,13 @@ export interface User {
   lastMessage?: string;
   ref?: string;
   date?: number;
-  dogs: [string];
+  dogs: string[];
   email: string;
-  freinds: [string];
+  freinds: string[];
   name: string;
-  liked: [string];
+  liked: string[];
   uid: string;
-  disliked: [string];
+  disliked: string[];
   bio: string;
   picture: string;
 }

@@ -1,0 +1,20 @@
+<div class="w-100 mb-sm" fxLayoutAlign="end center">
+  <button (click)="close()" class="exit-icon" mat-icon-button><mat-icon>clear</mat-icon></button>
+</div>
+<h1 class="mt-0 mb-sm mlr-auto">Update Interests</h1>
+<form class="login-form w-100" fxLayout="column" fxLayoutAlign="center center" [formGroup]="interestsForm" (ngSubmit)="onSubmit()">
+  <mat-label class="mlr-auto">Interests:</mat-label>
+  <div class="check-boxes w-100 mb-xs mt-xs" fxLayout="row wrap" fxLayoutAlign="center center">
+    <mat-checkbox class="example-margin mb-xs" color="primary" formControlName="playdates">Playdates</mat-checkbox>
+    <mat-checkbox class="example-margin ml-sm mb-xs" color="primary" formControlName="adoption">Adoption</mat-checkbox>
+    <mat-checkbox class="example-margin ml-sm mb-xs" color="primary" formControlName="breading">Breading</mat-checkbox>
+  </div>
+  <button mat-raised-button color="primary" class="mb-xs mt-sm w-100">
+    <div class="login-button" type="submit" fxLayout="row" fxLayoutAlign="center center">
+      <div class="placeholder mr-sm"></div>
+      <h1 class="mtb-sm white">Update</h1>
+      <mat-spinner [diameter]="20" class="ml-sm" *ngIf="loading"></mat-spinner>
+      <div class="placeholder ml-sm" *ngIf="!loading"></div>
+    </div>
+  </button>
+</form>

@@ -36,6 +36,9 @@ import { LikedUsersComponent } from './components/liked-users/liked-users.compon
 import { AddDogDialogComponent } from './components/add-dog-dialog/add-dog-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { AddUserInfoDialogComponent } from './components/add-user-info-dialog/add-user-info-dialog.component';
+import { InterestsDialogComponent } from './components/interests-dialog/interests-dialog.component';
+import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { ViewDogsDialogComponent } from './components/view-dogs-dialog/view-dogs-dialog.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { AddUserInfoDialogComponent } from './components/add-user-info-dialog/ad
     MessengerComponent,
     LikedUsersComponent,
     AddDogDialogComponent,
-    AddUserInfoDialogComponent
+    AddUserInfoDialogComponent,
+    InterestsDialogComponent,
+    ConfirmationDialogComponent,
+    ViewDogsDialogComponent
   ],
   imports: [
     BrowserModule,

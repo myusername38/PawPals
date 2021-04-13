@@ -1,5 +1,6 @@
 <div class="main w-100 p-sm mlr-auto" fxLayout="column" fxLayoutAlign="center center">
-  <div fxLayout="flex-end">
+  <button mat-raised-button (click)="updatePreferences()" class="update-button mb-sm">Update Interests</button>
+  <div fxLayout="flex-end" *ngIf="currentProfile">
     <div class="w-100">
       <div class="user-image p-sm" *ngFor="let dog of dogs.slice(0,1)" [ngStyle]="{'background-image': 'url(' + dog.picture + ')'}" fxLayout="column" fxLayoutAlign="start start">
         <div class="dog-info pl-sm pr-sm">
@@ -54,6 +55,9 @@
         </div>
       </div>
     </div>
+  </div>
+  <div class="display">
+    <p>No more users, try updating preferences</p>
   </div>
   <div class="footer-placeholder w-100"></div>
 </div>
