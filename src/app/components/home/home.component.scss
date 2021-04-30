@@ -2,7 +2,7 @@
 
 .landing-outter {
   height: calc(100vh);
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('../../../assets/pictures/pawpas_background.jpg');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.7)), url('../../../assets/pictures/pawpas_background.jpg');
   background-position : center bottom;
   background-size: cover;
 	background-repeat: no-repeat;
@@ -10,11 +10,13 @@
 
 h1 {
   color: white;
+  font-family: 'Roboto', sans-serif;
+  font-size: 3vw;
 }
 
 
 //Custom Class
 
 .spacingTop{
-  margin-top: 68vh;
+  margin-top: 33vh;
 }
