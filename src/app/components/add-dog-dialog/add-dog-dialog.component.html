@@ -1,34 +1,37 @@
 <div class="w-100 mb-sm" fxLayoutAlign="end center">
   <button (click)="close()" class="exit-icon" mat-icon-button><mat-icon>clear</mat-icon></button>
 </div>
-<h1 class="mt-0 mb-xs mlr-auto">Add Dog!</h1>
+<h1 class="mt-0 mb-xs mlr-auto" *ngIf="!dog">Add Dog!</h1>
+<h1 class="mt-0 mb-xs mlr-auto" *ngIf="dog">Update Dog!</h1>
 <form class="login-form w-100" fxLayout="column" fxLayoutAlign="center center" [formGroup]="addDogForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="w-100" appearance="fill">
     <mat-label>Name:</mat-label>
-    <input type="text" formControlName="name" class="form-control white" matInput/>
+    <input type="text" formControlName="name" class="form-control" matInput/>
   </mat-form-field>
   <mat-form-field class="w-100" appearance="fill">
     <mat-label>Bread</mat-label>
-    <input type="text" formControlName="bread" class="form-control white" matInput/>
+    <input type="text" formControlName="bread" class="form-control" matInput/>
   </mat-form-field>
   <mat-form-field class="w-100" appearance="fill">
     <mat-label>Description:</mat-label>
-    <input type="text" formControlName="description" class="form-control white" matInput/>
+    <input type="text" formControlName="description" class="form-control" matInput/>
   </mat-form-field>
   <mat-label class="ml-sm mr-auto">Interests:</mat-label>
   <div class="check-boxes w-100 mb-xs mt-xs" fxLayout="row wrap" fxLayoutAlign="center center">
-    <mat-checkbox class="example-margin mb-xs" formControlName="playdates">Playdates</mat-checkbox>
-    <mat-checkbox class="example-margin ml-sm mb-xs" formControlName="adoption">Adoption</mat-checkbox>
-    <mat-checkbox class="example-margin ml-sm mb-xs" formControlName="breading">Breading</mat-checkbox>
+    <mat-checkbox class="example-margin mb-xs" color="primary" formControlName="playdates">Playdates</mat-checkbox>
+    <mat-checkbox class="example-margin ml-sm mb-xs" color="primary" formControlName="adoption">Adoption</mat-checkbox>
+    <mat-checkbox class="example-margin ml-sm mb-xs" color="primary" formControlName="breading">Breading</mat-checkbox>
   </div>
   <div fxLayoutAlign="row">
-    <mat-label class="mr-sm">Picture:</mat-label>
+    <mat-label class="mr-sm" *ngIf="!dog">Picture:</mat-label>
+    <mat-label class="mr-sm" *ngIf="dog">Update Picture:</mat-label>
     <input formControlName="picture" type="file" id="file">
   </div>
   <button mat-raised-button color="primary" class="mb-xs mt-sm w-100" [disabled]="addDogForm.invalid">
     <div class="login-button" type="submit" fxLayout="row" fxLayoutAlign="center center">
       <div class="placeholder mr-sm"></div>
-      <h1 class="mtb-sm">Add</h1>
+      <h1 class="mtb-sm white" *ngIf="!dog">Add</h1>
+      <h1 class="mtb-sm white" *ngIf="dog">Update</h1>
       <mat-spinner [diameter]="20" class="ml-sm" *ngIf="loading"></mat-spinner>
       <div class="placeholder ml-sm" *ngIf="!loading"></div>
     </div>

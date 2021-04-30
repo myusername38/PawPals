@@ -1,8 +1,9 @@
 <div class="w-100 mb-sm" fxLayoutAlign="end center">
   <button (click)="close()" class="exit-icon" mat-icon-button><mat-icon>clear</mat-icon></button>
 </div>
-<h1 class="mt-0 mb-xs mlr-auto">Lets get to know you!</h1>
-<p class="mb-sm">Before you start swiping on some dogs add a picture of you as well as a bio!</p>
+<h1 class="mt-0 mb-xs mlr-auto" *ngIf="!user.bio">Lets get to know you!</h1>
+<h1 class="mt-0 mb-xs mlr-auto" *ngIf="user.bio">Update Profile</h1>
+<p class="mb-sm" *ngIf="!user.bio">Before you start swiping on some dogs add a picture of you as well as a bio!</p>
 <form class="login-form w-100" fxLayout="column" fxLayoutAlign="center center" [formGroup]="addUserInfoForm" (ngSubmit)="onSubmit()">
   <mat-form-field class="w-100" appearance="fill">
     <mat-label>Bio:</mat-label>
@@ -15,7 +16,8 @@
   <button mat-raised-button color="primary" class="mb-xs mt-sm w-100" [disabled]="addUserInfoForm.invalid">
     <div class="login-button" type="submit" fxLayout="row" fxLayoutAlign="center center">
       <div class="placeholder mr-sm"></div>
-      <h1 class="mtb-sm">Add</h1>
+      <h1 class="mtb-sm button-text" *ngIf="!user.bio">Add</h1>
+      <h1 class="mtb-sm button-text" *ngIf="user.bio">Update</h1>
       <mat-spinner [diameter]="20" class="ml-sm" *ngIf="loading"></mat-spinner>
       <div class="placeholder ml-sm" *ngIf="!loading"></div>
     </div>

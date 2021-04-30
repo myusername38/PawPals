@@ -57,7 +57,7 @@ export class UserProfileComponent implements OnInit {
       (await this.db.collection('dogs').ref.where('owner', '==', this.userUid).get()).docs.forEach(async doc => {
         const dog = doc.data() as Dog;
         this.afStorage.refFromURL(`${ environment.storageUrl }/${ dog.picture }`).getDownloadURL().subscribe(url => {
-          dog.picture = url;
+          dog.url = url;
         })
         this.dogs.push(dog);
       });
@@ -69,10 +69,12 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  async addDog() {
+  async addDog(dog = null) {
     const dialogRef = this.dialog.open(AddDogDialogComponent, {
       width: '600px',
-      data: {}
+      data: {
+        dog
+      }
     })
     dialogRef.afterClosed().subscribe(result => {
       this.getDogs();
@@ -82,7 +84,9 @@ export class UserProfileComponent implements OnInit {
   async addUserInfo() {
     const dialogRef = this.dialog.open(AddUserInfoDialogComponent, {
       width: '600px',
-      data: {}
+      data: {
+        user: this.userInfo
+      }
     })
     dialogRef.afterClosed().subscribe(result => {
       this.getUser();

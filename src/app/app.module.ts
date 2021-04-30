@@ -39,6 +39,7 @@ import { AddUserInfoDialogComponent } from './components/add-user-info-dialog/ad
 import { InterestsDialogComponent } from './components/interests-dialog/interests-dialog.component';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { ViewDogsDialogComponent } from './components/view-dogs-dialog/view-dogs-dialog.component';
+import { MatchDialogComponent } from './components/match-dialog/match-dialog.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ViewDogsDialogComponent } from './components/view-dogs-dialog/view-dogs
     AddUserInfoDialogComponent,
     InterestsDialogComponent,
     ConfirmationDialogComponent,
-    ViewDogsDialogComponent
+    ViewDogsDialogComponent,
+    MatchDialogComponent
   ],
   imports: [
     BrowserModule,

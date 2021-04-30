@@ -8,6 +8,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { InterestsDialogComponent } from '../interests-dialog/interests-dialog.component';
 import { SnackbarService } from '../../services/snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
+import { MatchDialogComponent } from '../match-dialog/match-dialog.component';
 
 @Component({
   selector: 'app-swiping-interface',
@@ -21,7 +22,7 @@ export class SwipingInterfaceComponent implements OnInit {
   uid = '';
   otherUsers: User[] = [];
   loading = false;
-  currentProfile = null;
+  currentProfile: User = null;
   dogDescription = 'Likes to be a big gamer energy'
   dogs: Dog[] = [];
   breading = true;
@@ -80,8 +81,24 @@ export class SwipingInterfaceComponent implements OnInit {
   likeUser(user: User = this.currentProfile) {
     this.snackbar.showInfo('Liked User')
     this.user.liked.push(user.uid);
+    this.checkMatch();
     this.updateUser();
     this.loadNextUser();
+  }
+
+  checkMatch() {
+    if (this.currentProfile.liked.includes(this.user.uid)) {
+      const dialogRef = this.dialog.open(MatchDialogComponent, {
+        width: '400px',
+        data: {
+          name: this.currentProfile.name,
+          dogs: this.dogs,
+        }
+      })
+      dialogRef.afterClosed().subscribe(result => {
+
+      })
+    }
   }
 
   dislikeUser(user: User =  this.currentProfile) {

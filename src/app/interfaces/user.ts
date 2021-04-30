@@ -12,4 +12,5 @@ export interface User {
   disliked: string[];
   bio: string;
   picture: string;
+  url?: string;
 }

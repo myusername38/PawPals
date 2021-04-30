@@ -1,0 +1,9 @@
+<div class="w-100 mb-sm" fxLayoutAlign="end center">
+  <button (click)="close()" class="exit-icon" mat-icon-button><mat-icon>clear</mat-icon></button>
+</div>
+<div class="w-100" fxLayoutAlign="center center" fxLayout="column">
+  <h1 class="title">Congradulations! You matched with {{ dogName }} and {{ userName }}</h1>
+  <div class="dog-image title" [ngStyle]="{'background-image': 'url(' + image + ')'}"></div>
+  <p class="subtitle">Go to messages to send them a message!</p>
+  <button mat-raised-button color="primary" class="match-button p-sm" (click)="goToMessages()">Go to Messages</button>
+</div>

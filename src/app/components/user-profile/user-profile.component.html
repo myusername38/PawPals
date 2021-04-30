@@ -1,6 +1,6 @@
 <div class="main w-100 p-sm mlr-auto" fxLayout="column" fxLayoutAlign="center center">
   <div class="user" *ngIf="userInfo">
-    <div class="user-image" [ngStyle]="{'background-image': 'url(' + picture + ')'}"></div>
+    <div class="user-image" (click)="addUserInfo()" [ngStyle]="{'background-image': 'url(' + picture + ')'}"></div>
     <div class="user-data pt-xs pb-xs pl-sm pr-sm ml-0 mr-auto">
       <h1 class="name mt-0">{{ userInfo?.name }}</h1>
       <p class="location mb-0">Chapel Hill, Nc</p>
@@ -10,8 +10,8 @@
     <h1>Your Dogs</h1>
   </div>
   <div class="user-dogs w-100 mt-lg" fxLayout="row wrap" fxLayoutAlign="center center">
-    <div class="dogs ml-sm mr-sm" *ngFor="let dog of dogs" fxLayout="column" fxLayoutAlign="center center">
-      <div class="dog-image" [ngStyle]="{'background-image': 'url(' + dog.picture + ')'}">
+    <div class="dogs ml-sm mr-sm" (click)="addDog(dog)" *ngFor="let dog of dogs" fxLayout="column" fxLayoutAlign="center center">
+      <div class="dog-image" [ngStyle]="{'background-image': 'url(' + dog.url + ')'}">
       </div>
       <p class="dog-name">{{ dog.name }}</p>
     </div>

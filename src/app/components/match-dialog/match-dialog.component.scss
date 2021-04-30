@@ -18,3 +18,21 @@
   color: white;
 }
 
+.dog-image {
+  width: 150px;
+  height: 150px;
+  background-size: cover;
+  border-radius: 75px;
+  overflow: hidden;
+  background-position: center;
+}
+
+.title {
+  text-align: center;
+  line-height: 1.4;
+}
+
+.match-button {
+  color: white;
+  font-size: 24px;
+}

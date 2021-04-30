@@ -21,6 +21,7 @@ export class AddUserInfoDialogComponent implements OnInit {
   adoption = false;
   userUid = 'chuckNorris'
   file = null;
+  user: User = null;
 
   @HostListener('change', ['$event.target.files']) emitFiles( event: FileList ) {
     const file = event && event.item(0);
@@ -34,12 +35,21 @@ export class AddUserInfoDialogComponent implements OnInit {
     private db: AngularFirestore,
     private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) public data) {
+      if (data.user) {
+        this.user = data.user;
+      }
     }
 
   ngOnInit(): void {
+    let bio = '';
+    let pictureValidator = [Validators.required];
+    if (this.user) {
+      bio = this.user.bio;
+      pictureValidator = null;
+    }
     this.addUserInfoForm = new FormGroup({
-      bio: new FormControl('', [Validators.required]),
-      picture: new FormControl(null, [Validators.required])
+      bio: new FormControl(bio, [Validators.required]),
+      picture: new FormControl(null, pictureValidator)
     });
     this.userUid = this.authService._user.uid
   }
@@ -58,25 +68,46 @@ export class AddUserInfoDialogComponent implements OnInit {
   }
 
   async onSubmit() {
-    try {
-      this.loading = true;
-      const id = `${ this.userUid }-u-` + Math.random().toString(36).substring(2);
-      const user = this.addUserInfoForm.value;
-      user.picture = id;
-      user.owner = this.userUid;
-      let ref = this.afStorage.ref(id);
-      let userInfo = (await this.db.doc(`/users/${ this.userUid }`).ref.get()).data() as User;
-      userInfo.bio = user.bio;
-      userInfo.picture = user.picture;
-      await Promise.all([
-        ref.put(this.file),
-        this.db.doc(`/users/${ this.userUid }`).set(userInfo)
-      ]);
-      this.dialogRef.close();
-    } catch (err) {
-      console.log(err)
-    } finally {
-      this.loading = false;
+    if (this.user.bio) {
+      try {
+        this.loading = true;
+        const promises = [];
+        promises.push(this.db.doc(`/users/${ this.userUid }`).ref.update('bio', this.addUserInfoForm.value.bio));
+        if (this.addUserInfoForm.value.picture) {
+          let ref = this.afStorage.ref(this.user.picture);
+          promises.push(ref.put(this.file))
+        }
+        await Promise.all(promises);
+        this.snackbarService.showInfo('User Info Updated')
+        this.dialogRef.close();
+      } catch (err) {
+        console.log(err);
+      } finally {
+        this.loading = false;
+      }
+
+    } else {
+      try {
+        this.loading = true;
+        const id = `${ this.userUid }-u-` + Math.random().toString(36).substring(2);
+        const user = this.addUserInfoForm.value;
+        user.picture = id;
+        user.owner = this.userUid;
+        let ref = this.afStorage.ref(id);
+        let userInfo = (await this.db.doc(`/users/${ this.userUid }`).ref.get()).data() as User;
+        userInfo.bio = user.bio;
+        userInfo.picture = user.picture;
+        await Promise.all([
+          ref.put(this.file),
+          this.db.doc(`/users/${ this.userUid }`).set(userInfo)
+        ]);
+        this.snackbarService.showInfo('User Info Added')
+        this.dialogRef.close();
+      } catch (err) {
+        console.log(err)
+      } finally {
+        this.loading = false;
+      }
     }
   }
 

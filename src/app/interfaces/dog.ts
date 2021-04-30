@@ -7,5 +7,6 @@ export interface Dog {
   name: string;
   owner: string;
   picture: string;
+  url?: string;
   playdates: boolean;
 }
