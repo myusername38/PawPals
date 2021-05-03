@@ -1,3 +1,6 @@
+<mat-toolbar class="tool-bar w-100">
+  <img class="log-picture" src="../../../assets/pictures/fullogo.png">
+</mat-toolbar>
 <div class="main w-100">
   <div class="liked-users w-100 mlr-auto p-sm" fxLayout="column" fxLayoutAlign="center start">
     <div class="liked-user mb-sm mt-sm" *ngFor="let user of friends" (click)="openChat(user.ref, user.uid)" fxLayout="row" fxLayoutAlign="start start">

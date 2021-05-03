@@ -1,4 +1,7 @@
-<div class="main w-100 p-sm mlr-auto" fxLayout="column" fxLayoutAlign="center center">
+<mat-toolbar class="tool-bar w-100">
+  <img class="log-picture" src="../../../assets/pictures/fullogo.png">
+</mat-toolbar>
+<div class="main w-100 p-sm mlr-auto" fxLayout="column" fxLayoutAlign="start center">
   <div class="user" *ngIf="userInfo">
     <div class="user-image" (click)="addUserInfo()" [ngStyle]="{'background-image': 'url(' + picture + ')'}"></div>
     <div class="user-data pt-xs pb-xs pl-sm pr-sm ml-0 mr-auto">
