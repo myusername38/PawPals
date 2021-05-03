@@ -1,3 +1,46 @@
-<div class="landing-outter p-sm pt-xl w-100" fxLayoutAlign="center center">
-  <h1 class="mt-xl mlr-auto">Home component works</h1>
+<div class="landing-outter w-100">
+  <div class="main p-sm" fxLayout="column" fxLayoutAlign="center center">
+    <div class="title-box w-100">
+      <h1 class="title white mlr-auto">Welcome To</h1>
+      <h1 class="title orange mlr-auto">PawPals!</h1>
+    </div>
+    <div class="mid-boxes w-100" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center" fxLayoutAlign.gt-sm="space-around center">
+      <div class="info-box mb-sm" fxHide.lt-sm>
+        <p class="ml-sm mr-sm first-box">Connecting Paws to Phones in the Triangle</p>
+      </div>
+      <div class="dogs p-sm mb-sm" fxLayoutAlign="center center" fxLayout="column" fxHide.lt-md>
+        <h1 class="black">Find local dogs!</h1>
+        <div class="orange-box p-sm">
+          <h1 class="mt-0 mb-0">Dogs in your area: {{ dogs }}</h1>
+        </div>
+      </div>
+    </div>
+    <button mat-raised-button (click)="learnMore()" class="learn-more p-sm">Learn More</button>
+  </div>
+  <div class="lower p-sm w-100" fxLayout="column" fxLayoutAlign="center ceneter">
+    <h1 class="title black mlr-auto">The Dog Owner Meeting App</h1>
+    <div class="info-box w-100 mlr-auto">
+      <p class="m-sm">Paw Pals is a social media app, but for dogs. Our goal is to help dog
+         owners find and connect with other dog owners in the area. Because dog
+         owners often desire to find other dogs for their pet to socialize with,
+         the PawPals app provides an easy way to do so.
+      </p>
+    </div>
+    <div class="w-100" fxLayout="column" fxLayout.gt-sm="row" fxLayoutAlign="center center">
+      <img class="dog-picture w-100 m-sm" src="../../../assets/pictures/racingpuppies.jpg"/>
+      <img class="dog-picture w-100 m-sm" src="../../../assets/pictures/playingpuppies.jpg"/>
+      <img class="dog-picture w-100 m-sm" src="../../../assets/pictures/waterdogs.jpg"/>
+    </div>
+    <div class="info-box w-100 mlr-auto">
+      <p class="m-sm">Rather than hoping to meet other pet owners by chance on walks or at dog
+         parks. PawPals streamlines the pet socialization process making it
+         easier to meet and socialize with other dogs in todays quickly moving
+         social environment.
+      </p>
+    </div>
+  </div>
+  <div class="w-100 pb-md" fxLayoutAlign="center center">
+      <button mat-raised-button (click)="backToTop()" color="primary" class="back p-sm mt-sm mlr-auto">Back to top</button>
+  </div>
+
 </div>
