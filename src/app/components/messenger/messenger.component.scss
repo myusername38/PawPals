@@ -50,11 +50,6 @@ p {
   }
 }
 
-.icon {
-  font-size: 80px !important;
-  color: $color1;
-}
-
 .icon-small {
   font-size: 40px !important;
   color: $color1;
@@ -63,6 +58,10 @@ p {
 .back-button {
   margin-top: 32px;
   position: absolute;
+  .icon {
+    font-size: 80px !important;
+    color: $color1;
+  }
 }
 
 .message-box {
@@ -112,4 +111,8 @@ p {
   position: fixed;
   bottom: -16px;
   background-color: $color2;
+}
+
+.white {
+  color: white;
 }

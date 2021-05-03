@@ -9,6 +9,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { User } from 'src/app/interfaces/user';
 import { ShowHideStyleBuilder } from '@angular/flex-layout';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-messenger',
@@ -25,6 +26,7 @@ export class MessengerComponent implements OnInit {
   uid = ''
   messages = []
   selectedUserUid = '';
+  scroll: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(private _ngZone: NgZone, private router: Router, private route: ActivatedRoute, private db: AngularFirestore, private authService: AuthService, private afStorage: AngularFireStorage) {
     this.route.queryParams.subscribe(params => {
@@ -49,8 +51,15 @@ export class MessengerComponent implements OnInit {
         let message = doc.data();
         this.messages.push(message);
       })
+      this.scroll.next(true);
     });
     this.getUser();
+    this.scroll.subscribe(scrollDown => {
+      if (scrollDown) {
+        this.scroll.next(false);
+        setTimeout(() => { this.scrollToBottom(); }, 500)
+      }
+    })
   }
 
   triggerResize() {
@@ -91,9 +100,7 @@ export class MessengerComponent implements OnInit {
     } catch (err) {
       console.log(err)
     } finally {
-
     }
-    this.scrollToBottom();
   }
 
   updateTextArea() {
@@ -120,6 +127,7 @@ export class MessengerComponent implements OnInit {
   }
 
   scrollToBottom(): void {
+    console.log('here')
     this.chatWindow.nativeElement.scroll({
       top: this.chatWindow.nativeElement.scrollHeight - 100,
       left: 0,

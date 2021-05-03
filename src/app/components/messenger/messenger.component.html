@@ -1,9 +1,9 @@
-<mat-toolbar class="tool-bar w-100">
+<mat-toolbar class="tool-bar w-100" fxLayoutAlign="space-between center">
   <img class="log-picture" src="../../../assets/pictures/fullogo.png">
+  <button mat-raised-button color="primary" (click)="back()" class="white">Return</button>
 </mat-toolbar>
 <div class="main w-100" fxLayout="column">
   <div class="header p-md" *ngIf="selectedUser">
-    <button mat-icon-button (click)="back()" class="back-button"><mat-icon class="icon">keyboard_arrow_left</mat-icon></button>
     <div class="user" fxLayout="row" fxLayoutAlign="center center">
       <div class="user-picture-large" [ngStyle]="{'background-image': 'url(' + selectedUser.picture + ')'}"></div>
       <h1 class="user-name ml-sm">{{ selectedUser.name }}</h1>
@@ -30,7 +30,6 @@
                 #autosize="cdkTextareaAutosize"
                 class="message-box w-100 pb-xs" [(ngModel)] = "userMessage" (ngModelChange)="updateTextArea()" (keypress)="disableEnter($event)"></textarea>
     </mat-form-field>
-
   <button mat-button class="ml-sm submit-button" (click)="send()"><p class="mt-0 mb-0 mlr-auto">Send</p></button>
 </div>
 
