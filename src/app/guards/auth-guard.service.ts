@@ -46,7 +46,6 @@ export class AuthGuard implements CanActivate {
         this.routeToLoad = this.routeToLoad.substr(0, endOfUrl);
       }
     }
-    // if (!this.authService.currentUserEmailVerified()) {
     if (!this.user) {
       if (!this.authService.token) {
         return;

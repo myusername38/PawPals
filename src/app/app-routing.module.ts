@@ -11,6 +11,7 @@ import { SwipingInterfaceComponent } from './components/swiping-interface/swipin
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { LikedUsersComponent } from './components/liked-users/liked-users.component';
 import { AuthGuard } from './guards/auth-guard.service';
+import { ViewProfileComponent } from './components/view-profile/view-profile.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, children: [
@@ -25,6 +26,7 @@ const routes: Routes = [
     { path: '', component: SwipingInterfaceComponent, canActivate: [AuthGuard] },
     { path: 'user-interface', component: UserInterfaceComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard] },
+    { path: 'view-profile', component: ViewProfileComponent, canActivate: [AuthGuard] },
   ] },
   { path: 'messanger', component: MessengerComponent, canActivate: [AuthGuard] },
 ];

@@ -38,7 +38,10 @@ export class AddDogDialogComponent implements OnInit {
     private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) public data) {
       if (data.dog) {
-        this.dog = data.dog;
+        if (data.dog !== null) {
+          this.dog = data.dog;
+          console.log(this.dog)
+        }
       }
     }
 
@@ -81,8 +84,9 @@ export class AddDogDialogComponent implements OnInit {
   }
 
   async onSubmit() {
-    if (!this.dog) {
+    if (this.dog === null) {
       try {
+        console.log('here')
         const id = `${ this.userUid }-` + Math.random().toString(36).substring(2);
         const dog = this.addDogForm.value;
         dog.picture = id;
@@ -91,7 +95,6 @@ export class AddDogDialogComponent implements OnInit {
         let userInfo = (await this.db.doc(`/users/${ this.userUid }`).ref.get()).data() as User;
         userInfo.dogs.push(id)
         await Promise.all([
-          userInfo.dogs.push(id),
           ref.put(this.file),
           this.db.doc(`/dogs/${ id }`).set(dog),
           this.db.doc(`/users/${ this.userUid }`).set(userInfo)
@@ -103,17 +106,18 @@ export class AddDogDialogComponent implements OnInit {
         this.loading = false;
       }
     } else {
+      console.log('here 2')
       try {
         const dog = this.addDogForm.value;
         dog.owner = this.userUid;
         const promises = [];
+        dog.picture = this.dog.picture;
         if (dog.picture) {
           let ref = this.afStorage.ref(this.dog.picture);
           promises.push(ref.put(this.file),)
-        } else {
-          dog.picture = this.dog.picture;
         }
-        promises.push(this.db.doc(`/dogs/${ this.dog.picture }`).set(dog))
+        promises.push(this.db.doc(`/dogs/${ dog.picture }`).set(dog))
+        console.log(dog.picture)
         await Promise.all(promises);
         this.dialogRef.close();
       } catch (err) {
@@ -124,5 +128,20 @@ export class AddDogDialogComponent implements OnInit {
     }
   }
 
-
+  async deleteDog() {
+    try {
+      this.loading = true;
+      let userDoc = (await this.db.doc(`/users/${ this.userUid }`).ref.get()).data() as User
+      userDoc.dogs = userDoc.dogs.filter(dog => dog !== this.dog.picture);
+      await Promise.all([
+        this.db.doc(`/users/${ this.userUid }`).ref.set(userDoc),
+        this.db.doc(`/dogs/${ this.dog.picture }`).ref.delete()
+      ])
+      this.snackbarService.showInfo('Dog Deleted')
+    } catch(err) {
+      console.log(err)
+    } finally {
+      this.loading = false;
+    }
+  }
 }

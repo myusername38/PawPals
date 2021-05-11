@@ -1,0 +1,86 @@
+@import "../../../vars.scss";
+
+.main {
+  min-height: 100vh;
+  max-width: 600px;
+  margin-top: 85px;
+}
+
+.footer-placeholder {
+  height: $footer-height;
+}
+
+.description {
+  max-width: 268px;
+}
+
+.update-button {
+  color: white;
+  background-color: $color1;
+}
+
+.bio {
+  max-width: 268px;
+}
+
+.user-image {
+  max-width: 300px;
+  height: 500px;
+  width: 300px;
+  overflow: hidden;
+  z-index: -1 !important;
+  img {
+    z-index: -1 !important;
+  }
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: white;
+  background-position: center;
+  border-radius: 25px;
+}
+
+.button-container {
+  height: 100px;
+  width: 100px;
+  background-color: white;
+  border-radius: 50px;
+}
+
+.icon {
+  height: 72px;
+  width: 72px;
+  font-size: 74px !important;
+  color: $color1;
+}
+
+.dog-info {
+  background-color:rgba(0,0,0,0.7);
+  border-radius: 16px;
+}
+
+.bold {
+  font-weight: bold;
+  font-size: 18px !important;
+}
+
+.user-info {
+  background-color:rgba(0,0,0,0.7);
+  border-radius: 16px;
+}
+
+.liked-buttons {
+  margin-top: -60px;
+}
+
+.dislike {
+  margin-left: -16px;
+
+}
+
+.like {
+  margin-right: -16px;
+}
+
+.white {
+  color: white;
+}

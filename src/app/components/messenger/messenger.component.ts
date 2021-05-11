@@ -138,4 +138,8 @@ export class MessengerComponent implements OnInit {
   back() {
     this.router.navigate(['/pawpals/liked'])
   }
+
+  viewProfile() {
+    this.router.navigate(['/pawpals/view-profile'], {queryParams: { ref: this.ref, user: this.selectedUserUid },});
+  }
 }

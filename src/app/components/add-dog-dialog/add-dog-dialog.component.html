@@ -9,7 +9,7 @@
     <input type="text" formControlName="name" class="form-control" matInput/>
   </mat-form-field>
   <mat-form-field class="w-100" appearance="fill">
-    <mat-label>Bread</mat-label>
+    <mat-label>Breed</mat-label>
     <input type="text" formControlName="bread" class="form-control" matInput/>
   </mat-form-field>
   <mat-form-field class="w-100" appearance="fill">
@@ -20,7 +20,7 @@
   <div class="check-boxes w-100 mb-xs mt-xs" fxLayout="row wrap" fxLayoutAlign="center center">
     <mat-checkbox class="example-margin mb-xs" color="primary" formControlName="playdates">Playdates</mat-checkbox>
     <mat-checkbox class="example-margin ml-sm mb-xs" color="primary" formControlName="adoption">Adoption</mat-checkbox>
-    <mat-checkbox class="example-margin ml-sm mb-xs" color="primary" formControlName="breading">Breading</mat-checkbox>
+    <mat-checkbox class="example-margin ml-sm mb-xs" color="primary" formControlName="breading">Breeding</mat-checkbox>
   </div>
   <div fxLayoutAlign="row">
     <mat-label class="mr-sm" *ngIf="!dog">Picture:</mat-label>
@@ -37,4 +37,5 @@
     </div>
   </button>
 </form>
+<button mat-button (click)="deleteDog()" class="mlr-auto" *ngIf="dog">Delete Dog</button>
 
