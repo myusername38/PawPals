@@ -1,6 +1,6 @@
 # Pawpals
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.4. The Angular-rendered pages in this project use the TypeScript language for functionality, HTML for structural purposes, and Sass for formatting and design purposes. See https://tarheels.live/pawpals/?page_id=142&preview=true for project architecture diagram. 
 
 ## Development server
 
