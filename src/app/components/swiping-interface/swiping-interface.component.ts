@@ -9,6 +9,7 @@ import { InterestsDialogComponent } from '../interests-dialog/interests-dialog.c
 import { SnackbarService } from '../../services/snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatchDialogComponent } from '../match-dialog/match-dialog.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-swiping-interface',
@@ -32,6 +33,7 @@ export class SwipingInterfaceComponent implements OnInit {
   constructor(private db: AngularFirestore,
               private authService: AuthService,
               private afStorage: AngularFireStorage,
+              private router: Router,
               private dialog: MatDialog,
               private snackbar: SnackbarService) { }
 
@@ -44,6 +46,9 @@ export class SwipingInterfaceComponent implements OnInit {
     try {
       this.loading = true;
       this.user = (await this.db.doc(`/users/${ this.uid }`).ref.get()).data() as User;
+      if (!this.user.bio) {
+        this.router.navigate(['/pawpals/profile']);
+      }
       this.getUsers();
     } catch (err) {
       console.log(err)

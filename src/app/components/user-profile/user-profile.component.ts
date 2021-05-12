@@ -8,6 +8,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { Dog } from '../../interfaces/dog';
 import { environment } from '../../../environments/environment';
 import { User } from '../../interfaces/user';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,7 +25,7 @@ export class UserProfileComponent implements OnInit {
   userUid = '';
   storageRef = null;
 
-  constructor(public dialog: MatDialog, private authService: AuthService, private db: AngularFirestore, private afStorage: AngularFireStorage) { }
+  constructor(public dialog: MatDialog, private authService: AuthService, private db: AngularFirestore, private afStorage: AngularFireStorage, private router: Router) { }
 
   ngOnInit(): void {
     this.userUid = this.authService._user.uid
@@ -93,4 +94,8 @@ export class UserProfileComponent implements OnInit {
     })
   }
 
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['']);
+  }
 }

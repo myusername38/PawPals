@@ -80,7 +80,7 @@ export class RegisterComponent implements OnInit {
     try {
       this.loading = true;
       const formData = this.registerForm.getRawValue();
-      await this.authService.register(formData);
+      await this.authService.register({ ...formData, loc: window.location.hostname });
       this.router.navigate(['verify-email']);
     } catch (err) {
       if (err.error && err.error.email) {

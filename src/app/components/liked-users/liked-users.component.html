@@ -2,8 +2,12 @@
   <img class="log-picture" src="../../../assets/pictures/fullogo.png">
 </mat-toolbar>
 <div class="main w-100">
+  <div class="mt-lg w-100" fxLayoutAlign="center center" fxLayout="column" *ngIf="!friends[0]">
+    <p class="mlr-auto">No Matches! Get Swiping!</p>
+    <button mat-raised-button color="primary" (click)="swiping()" class="white mlr-auto">Back to Swiping</button>
+  </div>
   <div class="liked-users w-100 mlr-auto p-sm" fxLayout="column" fxLayoutAlign="center start">
-    <div class="liked-user mb-sm mt-sm" *ngFor="let user of friends" (click)="openChat(user.ref, user.uid)" fxLayout="row" fxLayoutAlign="start start">
+    <div class="liked-user mb-sm mt-sm" *ngFor="let user of friends" (click)="openChat(user.ref, user.uid)" fxLayout="row" fxLayoutAlign="center center">
       <div class="user-picture" [ngStyle]="{'background-image': 'url(' + user.picture + ')'}"></div>
       <div class="user-info pl-sm" fxLayout="column" fxLayoutAlign="start start">
         <h1 class="mt-0 mb-0">{{ user.name }}</h1>

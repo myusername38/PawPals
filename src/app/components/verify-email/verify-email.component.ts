@@ -33,14 +33,23 @@ export class VerifyEmailComponent implements OnInit {
   async verifyEmail(oobCode) {
     try {
       this.loading = true;
-      console.log(oobCode);
       const responce = await this.authService.verifyEmail(oobCode);
+      this.snackbarService.showInfo('Email Verified')
       this.router.navigate(['']);
-      console.log(responce);
     } catch (err) {
       console.log(err)
     } finally {
       this.loading = false;
     }
+  }
+
+  async login() {
+    await this.authService.logout();
+    this.router.navigate(['login']);
+  }
+
+  async signInWithDifferentAccount() {
+    await this.authService.logout();
+    this.router.navigate(['login']);
   }
 }

@@ -103,4 +103,8 @@ export class LikedUsersComponent implements OnInit {
     }
     return message;
   }
+
+  swiping() {
+    this.router.navigate(['pawpals']);
+  }
 }
